@@ -1,49 +1,78 @@
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-import java.util.Scanner;
+import javax.sound.midi.Soundbank;
+import java.util.*;
 public class Main {
     public static void main(String[] args) {
         Scanner teclado = new Scanner(System.in);
-        int opcion, experiencia;
-
-        Personaje P1 = new Personaje("Florez", 1, 0, 100, true);
+        List<Personaje> lstLista = new ArrayList<>();
+        int opcion;
 
         do{
-            System.out.println("==========================");
-            P1.mostrarEstado();
+
             System.out.println("==========================");
             System.out.println("     Menu ");
-            System.out.println("1. Gana experiencia");
-            System.out.println("2. Sube de nivel");
-            System.out.println("3. Aplica dano");
-            System.out.println("4. Curate");
-            System.out.println("5. Salir");
+            System.out.println("1. Crea el personaje");
+            System.out.println("2. Mostrar Personaje");
+            System.out.println("3. Buscar Persoanje");
+            System.out.println("4. Salir");
             opcion = teclado.nextInt();
+            teclado.nextLine();
 
             switch (opcion) {
                 case 1:
-                    System.out.println("Cuanta experiencia quieres gaanar?");
-                    P1.ganarExperiencia(10);
-                    P1.mostrarEstado();
+                    System.out.println("Ingresa el nombre de tu personaje");
+                    String nombre = teclado.next();
+
+                    System.out.println("Ingresa la experiencia de tu personaje");
+                    int experiencia = teclado.nextInt();
+
+                    System.out.println("Ingrese la vida");
+                    int vida = teclado.nextInt();
+
+                    System.out.println("Ingrese el nivel");
+                    int nivel = teclado.nextInt();
+
+                    System.out.println("Ingrese si esta vivio o no");
+                    boolean vivo = teclado.nextBoolean();
+
+
+                    Personaje P1 = new Personaje(nombre, nivel, experiencia, vida, vivo);
+                    lstLista.add(P1);
                     break;
+
                 case 2:
-                    System.out.println("Tu nuevo nivel es " + P1.subirNivel());
-                    P1.mostrarEstado();
+                    for (Personaje p : lstLista){
+                        System.out.println(p);
+                    }
+
                     break;
                 case 3:
-                    System.out.println("Dano aplicado"+ P1.recibirDano(15));
-                    P1.mostrarEstado();
-                    break;
-                case 4:
-                    System.out.println("Puntos de vida"+ P1.curarse(5));
-                    P1.mostrarEstado();
+                    String nombre1;
+                    System.out.println("INGRESE EL NOMBRE DEL PERSONAJE");
+                    nombre1 = teclado.next();
+
+                    if (lstLista.isEmpty()){
+                        System.out.println("La lista no tiene elementos");
+                    }
+
+                    Personaje P1 = null;
+
+                    for (Personaje p: lstLista){
+                        if(p.getNombre().equalsIgnoreCase(nombre1)){
+                            P1 = p;
+                            System.out.println(P1.toString());
+                        }
+                    }
+
+
                     break;
                 default:
                     System.out.println("ACCION NO VALIDA");
                     break;
             }
 
-        }while(opcion != 5);
+        }while(opcion != 4);
 
         }
 
